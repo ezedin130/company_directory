@@ -1,7 +1,18 @@
-import 'package:company_directory/views/home_page.dart';
+import 'package:company_directory/utils/app_shared_preferences.dart';
+import 'package:company_directory/widgets/navigation_wrapper.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-void main() {
+import 'controller/favorite_controller.dart';
+import 'controller/navigation_controller.dart';
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  final controller = Get.put(FavoritesController());
+  await controller.loadFavorites();
+
+  await AppSharedPreferences.init();
+  Get.put(NavigationController());
   runApp(const MyApp());
 }
 
@@ -10,10 +21,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Company Directory',
-      home: const HomePage(),
+      home: const NavigationWrapper(),
     );
   }
 }
