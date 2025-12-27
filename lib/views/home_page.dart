@@ -29,6 +29,9 @@ class HomePage extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return CompanyCard(
               companyName: companies[index],
+              onTap: (){
+                print('${companies[index]} tapped');
+              },
             );
           }
       )
